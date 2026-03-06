@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <div id="design">
+      <h1>Info</h1>
+      <div id="srcimg">
+        <h1>Image comes here</h1>
+      </div>
+      <div id="btn">
+        <button id="button">Click Mee! For more Info</button>
+      </div>
+    </div>
+  </body>
+  <script>
+    const requestUrl = "https://api.github.com/users/chandanpavan";
+    const xhr = new XMLHttpRequest();
+    // xhr.open("GET", requestUrl);
+
+    const response = document
+      .getElementById("button")
+      .addEventListener("click", () => {
+        xhr.open("GET", requestUrl);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            const data = JSON.parse(this.responseText);
+            const text = document.getElementById("design");
+            const imgResponce = document.getElementById("srcimg");
+            text.textContent = data.followers;
+            const response = data.avatar_url;
+            imgResponce.innerHTML = `<img src="${response}" alt="Avatar" />`;
+            console.log("Getting the data");
+          }
+        };
+        xhr.send();
+      });
+  </script>
+</html>
