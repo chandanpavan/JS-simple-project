@@ -25,24 +25,27 @@
     const response = document
       .getElementById("button")
       .addEventListener("click", () => {
+        // xhr open()
         xhr.open("GET", requestUrl);
         xhr.onreadystatechange = function () {
           if (xhr.readyState === 4) {
-            const data = JSON.parse(this.responseText);
+            // checking the state of xhr
+            const data = JSON.parse(this.responseText); // the data comes as String from the API so converting into JSON
             let followers = document.getElementById("followers");
             if (!followers) {
+              // creating the id if not present
               followers = document.createElement("followers");
               followers.id = "followers";
-              document.getElementById("design").appendChild(followers);
+              document.getElementById("design").appendChild(followers); // appending the followers id to the design id as a child
             }
             const imgResponce = document.getElementById("srcimg");
-            followers.textContent = data.followers;
+            followers.textContent = data.followers; // displaying the text
             const response = data.avatar_url;
-            imgResponce.innerHTML = `<img src="${response}" alt="Avatar" />`;
+            imgResponce.innerHTML = `<img src="${response}" alt="Avatar" />`; // displaying the img through inner html usage
             console.log("Getting the data");
           }
         };
-        xhr.send();
+        xhr.send(); //
       });
 
     // const img = document.createElement("img");
