@@ -29,9 +29,14 @@
         xhr.onreadystatechange = function () {
           if (xhr.readyState === 4) {
             const data = JSON.parse(this.responseText);
-            const text = document.getElementById("design");
+            let followers = document.getElementById("followers");
+            if (!followers) {
+              followers = document.createElement("followers");
+              followers.id = "followers";
+              document.getElementById("design").appendChild(followers);
+            }
             const imgResponce = document.getElementById("srcimg");
-            text.textContent = data.followers;
+            followers.textContent = data.followers;
             const response = data.avatar_url;
             imgResponce.innerHTML = `<img src="${response}" alt="Avatar" />`;
             console.log("Getting the data");
